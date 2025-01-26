@@ -1,10 +1,10 @@
-# Browser Oyunu
+# Shooting Game
 
-- Bu proje, sabit olarak duran bir ana karakter veya nesnenin, farklı yönlere doğru sabit bir şekilde hareket eden diğer nesneleri yok etmeye çalıştığı bir browser oyunudur.
+- Bu proje, sabit olarak duran bir topun, farklı yönlere doğru sabit bir doğrultuda hareket eden diğer topları yok etmeye çalıştığı bir browser oyunudur.
 
-- Toplar her temas ettiğinde, "can" hakkı azalmaktadır ve toplam 3 can hakkı bulunmaktadır.
+- Rakip toplarla temas edildiğinde, "can" hakkı azalmaktadır. Toplam 3 can hakkı bulunmaktadır.
 
-- Mouse sol tık'a basılı tutulduğunda, seri şekilde ateş edilebilmektedir.
+- Mouse üzerinde sol tık'a basılı tutulduğunda, seri şekilde ateş edilebilmektedir.
 
 - İsabetli atışlar, oyuncuya 10 puan kazandırır.
 

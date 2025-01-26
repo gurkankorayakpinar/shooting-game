@@ -1,13 +1,14 @@
-// script.js
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
+const scoreElement = document.getElementById('score');
+const livesElement = document.getElementById('lives');
 
-// Oyuncu (Sabit Araç)
+// Oyuncu (Sabit)
 const player = {
     x: canvas.width / 2,
     y: canvas.height - 50,
     radius: 20,
-    color: "blue"
+    color: "#61dafb"
 };
 
 // Toplar
@@ -78,7 +79,7 @@ function createBall() {
     const y = 0;
     const dx = (Math.random() - 0.5) * ballSpeed;
     const dy = Math.random() * ballSpeed + 1;
-    balls.push({ x, y, dx, dy, radius: ballRadius, color: "red" });
+    balls.push({ x, y, dx, dy, radius: ballRadius, color: "#ff4757" });
 }
 
 // Oyuncuyu Çizme
@@ -126,7 +127,7 @@ function drawBullets() {
     bullets.forEach((bullet, index) => {
         ctx.beginPath();
         ctx.arc(bullet.x, bullet.y, 5, 0, Math.PI * 2);
-        ctx.fillStyle = "black";
+        ctx.fillStyle = "#ffffff";
         ctx.fill();
         ctx.closePath();
 
@@ -161,17 +162,15 @@ function checkCollisions() {
     });
 }
 
-// Puan ve Canları Gösterme
-function drawHUD() {
-    ctx.fillStyle = "black";
-    ctx.font = "20px Arial";
-    ctx.fillText("Puan: " + score, 10, 30);
-    ctx.fillText("Can: " + lives, 10, 60);
+// Puan ve Canları Güncelleme
+function updateHUD() {
+    scoreElement.textContent = "Puan: " + score;
+    livesElement.textContent = "Can: " + lives;
 }
 
 // Game Over Ekranı
 function drawGameOver() {
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "#ff4757";
     ctx.font = "40px Arial";
     ctx.fillText("Game Over!", canvas.width / 2 - 100, canvas.height / 2);
     ctx.font = "20px Arial";
@@ -180,7 +179,7 @@ function drawGameOver() {
 
 // Kazanma Ekranı
 function drawGameWon() {
-    ctx.fillStyle = "green";
+    ctx.fillStyle = "#61dafb";
     ctx.font = "40px Arial";
     ctx.fillText("Kazandınız!", canvas.width / 2 - 100, canvas.height / 2);
     ctx.font = "20px Arial";
@@ -196,7 +195,7 @@ function gameLoop() {
         drawBalls();
         drawBullets();
         checkCollisions();
-        drawHUD();
+        updateHUD();
 
         // Yeni Toplar Oluştur
         if (Math.random() < 0.02) {
