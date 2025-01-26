@@ -10,7 +10,7 @@
 
 - Mouse üzerinde sol tık'a basılı tutulduğunda, seri şekilde ateş edilebilmektedir.
 
-# Düzeltilecek detaylar
+# Düzeltilecek veya eklenecek özellikler
 
 - Sol tık uzun süre basılı kaldığında, iptal edilemiyor.
 
