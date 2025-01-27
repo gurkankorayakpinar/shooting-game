@@ -1,7 +1,6 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const scoreElement = document.getElementById('score');
-const livesElement = document.getElementById('lives');
 const levelElement = document.getElementById('level');
 const levelBar = document.getElementById('levelBar');
 const powerBar = document.getElementById('powerBar');
@@ -50,67 +49,71 @@ canvas.addEventListener('mousemove', (event) => {
     mouseY = event.clientY - rect.top;
 });
 
-// Mouse Sol Tık'a Basıldığında
+// Mouse Tıklamasını Dinleme
 canvas.addEventListener('mousedown', (event) => {
-    if (event.button === 0) { // Sol tık
-        fireBullet(); // Tek bir mermi ateşle
+    if (event.button === 0) { // Sol tık (normal mermi)
+        fireBullet();
+    } else if (event.button === 2 && bulletCount >= 20) { // Sağ tık (büyük mermi)
+        firePowerBullet();
     }
 });
 
-// Klavye Hareketini Dinleme
-document.addEventListener('keydown', (event) => {
-    if (event.key === "ArrowLeft" && player.x > player.radius) {
-        player.x -= 10; // Sola hareket
-    } else if (event.key === "ArrowRight" && player.x < canvas.width - player.radius) {
-        player.x += 10; // Sağa hareket
-    }
+// Sağ tık menüsünü engelleme
+canvas.addEventListener('contextmenu', (event) => {
+    event.preventDefault();
 });
 
-// Mermi Ateşleme Fonksiyonu
+// Normal Mermi Ateşleme Fonksiyonu
 function fireBullet() {
     if (gameOver || gameWon) return;
 
     const angle = Math.atan2(mouseY - player.y, mouseX - player.x);
     const speed = 5;
 
-    // Güçlü mermi kontrolü
-    if (bulletCount >= 20) {
-        bullets.push({
-            x: player.x,
-            y: player.y,
-            dx: Math.cos(angle) * speed,
-            dy: Math.sin(angle) * speed,
-            isPowerBullet: true, // Güçlü mermi
-            radius: ballRadius, // Büyük mermi boyutu
-            color: "#8B0000" // Koyu kırmızı renk
-        });
-        bulletCount = 0; // Sayaç sıfırlansın
-    } else {
-        bullets.push({
-            x: player.x,
-            y: player.y,
-            dx: Math.cos(angle) * speed,
-            dy: Math.sin(angle) * speed,
-            isPowerBullet: false, // Normal mermi
-            radius: 5, // Normal mermi boyutu
-            color: "#ffffff" // Beyaz renk
-        });
-        bulletCount++; // Sayaç artsın
-    }
+    bullets.push({
+        x: player.x,
+        y: player.y,
+        dx: Math.cos(angle) * speed,
+        dy: Math.sin(angle) * speed,
+        isPowerBullet: false, // Normal mermi
+        radius: 5, // Normal mermi boyutu
+        color: "#ffffff" // Beyaz renk
+    });
 
-    updatePowerBar(); // Büyük mermi bar'ını güncelle
+    bulletCount++; // Sayaç artsın
+    updatePowerBar(); // Bar'ı güncelle
+}
+
+// Büyük Mermi Ateşleme Fonksiyonu
+function firePowerBullet() {
+    if (gameOver || gameWon) return;
+
+    const angle = Math.atan2(mouseY - player.y, mouseX - player.x);
+    const speed = 5;
+
+    bullets.push({
+        x: player.x,
+        y: player.y,
+        dx: Math.cos(angle) * speed,
+        dy: Math.sin(angle) * speed,
+        isPowerBullet: true, // Büyük mermi
+        radius: ballRadius, // Büyük mermi boyutu
+        color: "#8B0000" // Koyu kırmızı renk
+    });
+
+    bulletCount = 0; // Büyük mermi ateşlendi, sayacı sıfırla
+    updatePowerBar(); // Bar'ı güncelle
 }
 
 // Büyük Mermi Bar'ını Güncelleme
 function updatePowerBar() {
-    const powerProgress = (bulletCount / 20) * 100;
-    powerBar.style.width = powerProgress + "%";
-
-    // Bar dolduğunda bilgi yazısını göster
     if (bulletCount >= 20) {
+        powerBar.style.width = "100%"; // Bar tamamen dolu
         powerBarText.textContent = "Büyük Mermi Hazır!";
         powerBarText.style.opacity = 1;
     } else {
+        const powerProgress = (bulletCount / 20) * 100;
+        powerBar.style.width = powerProgress + "%";
         powerBarText.style.opacity = 0;
     }
 }
@@ -191,7 +194,7 @@ function checkCollisions() {
             const distance = Math.sqrt((bullet.x - ball.x) ** 2 + (bullet.y - ball.y) ** 2);
             if (distance < ball.radius + bullet.radius) {
                 if (bullet.isPowerBullet) {
-                    // Güçlü mermi: Tüm topları yok et
+                    // Büyük mermi: Tüm topları yok et
                     balls.splice(ballIndex, 1);
                     score += 10;
                 } else {
@@ -205,10 +208,9 @@ function checkCollisions() {
     });
 }
 
-// Puan, Can ve Level Güncelleme
+// Puan ve Level Güncelleme
 function updateHUD() {
     scoreElement.textContent = "Puan: " + score;
-    livesElement.textContent = "Can: " + lives;
     levelElement.textContent = "Level: " + level;
 
     // Level Bar Güncelleme

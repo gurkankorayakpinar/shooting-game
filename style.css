@@ -22,6 +22,7 @@ canvas {
     text-align: center;
     margin-top: 20px;
     font-size: 20px;
+    position: relative;
 }
 
 #gameInfo p {
@@ -74,10 +75,11 @@ canvas {
 }
 
 #livesContainer {
+    position: absolute;
+    top: 20px;
+    right: 20px;
     display: flex;
     gap: 10px;
-    justify-content: center;
-    margin-top: 10px;
 }
 
 .life {

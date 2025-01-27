@@ -6,12 +6,14 @@
 
 - İsabetli atışlar, oyuncuya 10 puan kazandırır.
 
-- Oyun, 1000 puana ulaşıldığında sona erer.
+- Her 20 atıştan sonra, oyuncuya "güçlü atış" hakkı verilir ve bu, normal atışlardan farklı olarak, rakip toplara isabet ettiğinde yok olmaz ve isabet ettiği tüm topları yok ederek ilerler.
 
-- Mouse üzerinde sol tık'a basılı tutulduğunda, seri şekilde ateş edilebilmektedir.
+- Her 1000 puan için 1 level kazanılır.
+
+- Oyun, 10000 puana ulaşıldığında sona erer.
 
 # Düzeltilecek veya eklenecek özellikler
 
-- Sol tık uzun süre basılı kaldığında, iptal edilemiyor.
+- Görsel iyileştirmeler yapılacak.
 
-- Belirli puan seviyelerinden sonra, oyunun zorluk düzeyi yükseltilecek.
+- Her "level up" sonrasında, oyunun zorluk seviyesi biraz daha artacak.
