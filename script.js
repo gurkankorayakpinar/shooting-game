@@ -2,13 +2,17 @@ const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const scoreElement = document.getElementById('score');
 const livesElement = document.getElementById('lives');
+const levelElement = document.getElementById('level');
+const levelBar = document.getElementById('levelBar');
+const powerBar = document.getElementById('powerBar');
+const powerBarText = document.getElementById('powerBarText');
 
 // Oyuncu (Sabit)
 const player = {
     x: canvas.width / 2,
     y: canvas.height - 50,
     radius: 20,
-    color: "#61dafb"
+    color: "#0000ff" // Mavi renk
 };
 
 // Toplar
@@ -25,6 +29,9 @@ let score = 0;
 // Can Sayısı
 let lives = 3;
 
+// Level
+let level = 1;
+
 // Oyun Durumu
 let gameOver = false;
 let gameWon = false;
@@ -33,8 +40,8 @@ let gameWon = false;
 let mouseX = player.x;
 let mouseY = player.y;
 
-// Sürekli Ateş Etme İçin Interval
-let fireInterval;
+// Normal Mermi Sayacı
+let bulletCount = 0;
 
 // Mouse Hareketini Takip Etme
 canvas.addEventListener('mousemove', (event) => {
@@ -46,31 +53,66 @@ canvas.addEventListener('mousemove', (event) => {
 // Mouse Sol Tık'a Basıldığında
 canvas.addEventListener('mousedown', (event) => {
     if (event.button === 0) { // Sol tık
-        fireBullet(); // İlk mermiyi hemen ateşle
-        fireInterval = setInterval(fireBullet, 100); // Her 100 ms'de bir mermi ateşle
+        fireBullet(); // Tek bir mermi ateşle
     }
 });
 
-// Mouse Sol Tık Bırakıldığında
-canvas.addEventListener('mouseup', (event) => {
-    if (event.button === 0) { // Sol tık
-        clearInterval(fireInterval); // Interval'i durdur
+// Klavye Hareketini Dinleme
+document.addEventListener('keydown', (event) => {
+    if (event.key === "ArrowLeft" && player.x > player.radius) {
+        player.x -= 10; // Sola hareket
+    } else if (event.key === "ArrowRight" && player.x < canvas.width - player.radius) {
+        player.x += 10; // Sağa hareket
     }
 });
 
 // Mermi Ateşleme Fonksiyonu
 function fireBullet() {
-    if (gameOver || gameWon) return; // Oyun bittiyse veya kazanıldıysa ateş etme
+    if (gameOver || gameWon) return;
 
     const angle = Math.atan2(mouseY - player.y, mouseX - player.x);
     const speed = 5;
 
-    bullets.push({
-        x: player.x,
-        y: player.y,
-        dx: Math.cos(angle) * speed,
-        dy: Math.sin(angle) * speed
-    });
+    // Güçlü mermi kontrolü
+    if (bulletCount >= 20) {
+        bullets.push({
+            x: player.x,
+            y: player.y,
+            dx: Math.cos(angle) * speed,
+            dy: Math.sin(angle) * speed,
+            isPowerBullet: true, // Güçlü mermi
+            radius: ballRadius, // Büyük mermi boyutu
+            color: "#8B0000" // Koyu kırmızı renk
+        });
+        bulletCount = 0; // Sayaç sıfırlansın
+    } else {
+        bullets.push({
+            x: player.x,
+            y: player.y,
+            dx: Math.cos(angle) * speed,
+            dy: Math.sin(angle) * speed,
+            isPowerBullet: false, // Normal mermi
+            radius: 5, // Normal mermi boyutu
+            color: "#ffffff" // Beyaz renk
+        });
+        bulletCount++; // Sayaç artsın
+    }
+
+    updatePowerBar(); // Büyük mermi bar'ını güncelle
+}
+
+// Büyük Mermi Bar'ını Güncelleme
+function updatePowerBar() {
+    const powerProgress = (bulletCount / 20) * 100;
+    powerBar.style.width = powerProgress + "%";
+
+    // Bar dolduğunda bilgi yazısını göster
+    if (bulletCount >= 20) {
+        powerBarText.textContent = "Büyük Mermi Hazır!";
+        powerBarText.style.opacity = 1;
+    } else {
+        powerBarText.style.opacity = 0;
+    }
 }
 
 // Topları Oluşturma
@@ -126,8 +168,8 @@ function drawBalls() {
 function drawBullets() {
     bullets.forEach((bullet, index) => {
         ctx.beginPath();
-        ctx.arc(bullet.x, bullet.y, 5, 0, Math.PI * 2);
-        ctx.fillStyle = "#ffffff";
+        ctx.arc(bullet.x, bullet.y, bullet.radius, 0, Math.PI * 2);
+        ctx.fillStyle = bullet.color;
         ctx.fill();
         ctx.closePath();
 
@@ -147,25 +189,46 @@ function checkCollisions() {
     bullets.forEach((bullet, bulletIndex) => {
         balls.forEach((ball, ballIndex) => {
             const distance = Math.sqrt((bullet.x - ball.x) ** 2 + (bullet.y - ball.y) ** 2);
-            if (distance < ball.radius + 5) {
-                // Çarpışma Oldu
-                balls.splice(ballIndex, 1);
-                bullets.splice(bulletIndex, 1);
-                score += 10; // Puan Artışı
-
-                // 1000 Puan Kontrolü
-                if (score >= 1000) {
-                    gameWon = true;
+            if (distance < ball.radius + bullet.radius) {
+                if (bullet.isPowerBullet) {
+                    // Güçlü mermi: Tüm topları yok et
+                    balls.splice(ballIndex, 1);
+                    score += 10;
+                } else {
+                    // Normal mermi: Sadece bir topu yok et
+                    balls.splice(ballIndex, 1);
+                    bullets.splice(bulletIndex, 1);
+                    score += 10;
                 }
             }
         });
     });
 }
 
-// Puan ve Canları Güncelleme
+// Puan, Can ve Level Güncelleme
 function updateHUD() {
     scoreElement.textContent = "Puan: " + score;
     livesElement.textContent = "Can: " + lives;
+    levelElement.textContent = "Level: " + level;
+
+    // Level Bar Güncelleme
+    const levelProgress = (score % 1000) / 1000 * 100;
+    levelBar.style.width = levelProgress + "%";
+
+    // Level Atlama
+    if (score >= level * 1000) {
+        level++;
+    }
+
+    // Can Görselini Güncelleme
+    const lifeElements = document.querySelectorAll('.life');
+    lifeElements.forEach((life, index) => {
+        if (index < lives) {
+            life.classList.remove('lost');
+        } else {
+            life.classList.add('lost');
+        }
+    });
 }
 
 // Game Over Ekranı
@@ -196,10 +259,16 @@ function gameLoop() {
         drawBullets();
         checkCollisions();
         updateHUD();
+        updatePowerBar();
 
         // Yeni Toplar Oluştur
         if (Math.random() < 0.02) {
             createBall();
+        }
+
+        // 10000 Puan Kontrolü
+        if (score >= 10000) {
+            gameWon = true;
         }
 
         requestAnimationFrame(gameLoop);

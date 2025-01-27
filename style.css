@@ -27,3 +27,67 @@ canvas {
 #gameInfo p {
     margin: 5px 0;
 }
+
+#levelBarContainer {
+    width: 200px;
+    height: 10px;
+    background-color: #444;
+    border-radius: 5px;
+    margin: 10px auto;
+}
+
+#levelBar {
+    width: 0%;
+    height: 100%;
+    background-color: #61dafb;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+#powerBarContainer {
+    width: 200px;
+    height: 10px;
+    background-color: #444;
+    border-radius: 5px;
+    margin: 10px auto;
+    position: relative;
+}
+
+#powerBar {
+    width: 0%;
+    height: 100%;
+    background-color: #ff4757;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+#powerBarText {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: #ff4757;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#livesContainer {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.life {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.life.lost {
+    background-color: transparent;
+}
