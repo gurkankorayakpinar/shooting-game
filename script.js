@@ -6,12 +6,12 @@ const levelBar = document.getElementById('levelBar');
 const powerBar = document.getElementById('powerBar');
 const powerBarText = document.getElementById('powerBarText');
 
-// Oyuncu (Sabit)
+// Oyuncu
 const player = {
     x: canvas.width / 2,
     y: canvas.height - 50,
     radius: 20,
-    color: "#0000ff" // Mavi renk
+    color: "#0000ff"
 };
 
 // Toplar
@@ -77,7 +77,7 @@ function fireBullet() {
         dy: Math.sin(angle) * speed,
         isPowerBullet: false, // Normal mermi
         radius: 5, // Normal mermi boyutu
-        color: "#ffffff" // Beyaz renk
+        color: "#ffffff"
     });
 
     bulletCount++; // Sayaç artsın
@@ -98,7 +98,7 @@ function firePowerBullet() {
         dy: Math.sin(angle) * speed,
         isPowerBullet: true, // Büyük mermi
         radius: ballRadius, // Büyük mermi boyutu
-        color: "#8B0000" // Koyu kırmızı renk
+        color: "#8B0000"
     });
 
     bulletCount = 0; // Büyük mermi ateşlendi, sayacı sıfırla

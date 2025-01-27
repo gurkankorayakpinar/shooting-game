@@ -14,6 +14,10 @@
 
 # Düzeltilecek veya eklenecek özellikler
 
-- Görsel iyileştirmeler yapılacak.
+- Oyun kaybedildiğinde, tekrar başlatman için buton eklenecek.
 
 - Her "level up" sonrasında, oyunun zorluk seviyesi biraz daha artacak.
+
+- Tek atışta yok olmayan, farklı renkte topların da oluşmaları sağlanacak.
+
+- Top renkleri ile birlikte bazı görsel iyileştirmeler yapılacak.
