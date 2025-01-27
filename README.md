@@ -6,18 +6,20 @@
 
 - İsabetli atışlar, oyuncuya 10 puan kazandırır.
 
-- Her 20 atıştan sonra, oyuncuya "güçlü atış" hakkı verilir ve bu, normal atışlardan farklı olarak, rakip toplara isabet ettiğinde yok olmaz ve isabet ettiği tüm topları yok ederek ilerler.
+- Her 1.000 puan için 1 level kazanılır.
 
-- Her 1000 puan için 1 level kazanılır.
+- Oyun, 10.000 puana ulaşıldığında sona erer.
 
-- Oyun, 10000 puana ulaşıldığında sona erer.
+- Her 20 atıştan sonra, oyuncuya "güçlü atış" hakkı verilir ve bu, normal atışlardan farklı olarak, rakip toplara isabet ettiğinde yok olmayan bir özelliğe sahiptir ve isabet ettiği tüm topları yok ederek ilerler.
+
+- Güçlü atış, sağ tık ile yapılır.
 
 # Düzeltilecek veya eklenecek özellikler
 
-- Oyun kaybedildiğinde, tekrar başlatman için buton eklenecek.
+- Oyun kaybedildiğinde, tekrar başlatılabilmesi için buton eklenecek.
 
-- Her "level up" sonrasında, oyunun zorluk seviyesi biraz daha artacak.
+- Her "level up" sonrasında, oyunun zorluk seviyesinin biraz daha artması sağlanacak.
 
-- Tek atışta yok olmayan, farklı renkte topların da oluşmaları sağlanacak.
+- Tek atışta yok olmayan, farklı renkte toplar eklenecek.
 
-- Top renkleri ile birlikte bazı görsel iyileştirmeler yapılacak.
+- Top renkleri gözden geçirilecek ve bazı görsel iyileştirmeler yapılacak.
