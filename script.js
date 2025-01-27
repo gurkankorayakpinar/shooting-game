@@ -53,7 +53,7 @@ canvas.addEventListener('mousemove', (event) => {
 canvas.addEventListener('mousedown', (event) => {
     if (event.button === 0) { // Sol tık (normal mermi)
         fireBullet();
-    } else if (event.button === 2 && bulletCount >= 20) { // Sağ tık (büyük mermi)
+    } else if (event.button === 2 && bulletCount >= 20) { // Sağ tık (torpido)
         firePowerBullet();
     }
 });
@@ -84,7 +84,7 @@ function fireBullet() {
     updatePowerBar(); // Bar'ı güncelle
 }
 
-// Büyük Mermi Ateşleme Fonksiyonu
+// Torpido Ateşleme Fonksiyonu
 function firePowerBullet() {
     if (gameOver || gameWon) return;
 
@@ -96,20 +96,20 @@ function firePowerBullet() {
         y: player.y,
         dx: Math.cos(angle) * speed,
         dy: Math.sin(angle) * speed,
-        isPowerBullet: true, // Büyük mermi
-        radius: ballRadius, // Büyük mermi boyutu
+        isPowerBullet: true, // Torpido
+        radius: ballRadius, // Torpido boyutu
         color: "#8B0000"
     });
 
-    bulletCount = 0; // Büyük mermi ateşlendi, sayacı sıfırla
+    bulletCount = 0; // Torpido ateşlendi, sayacı sıfırla.
     updatePowerBar(); // Bar'ı güncelle
 }
 
-// Büyük Mermi Bar'ını Güncelleme
+// Torpido Bar'ını Güncelleme
 function updatePowerBar() {
     if (bulletCount >= 20) {
         powerBar.style.width = "100%"; // Bar tamamen dolu
-        powerBarText.textContent = "Büyük Mermi Hazır!";
+        powerBarText.textContent = "Torpido Hazır!";
         powerBarText.style.opacity = 1;
     } else {
         const powerProgress = (bulletCount / 20) * 100;
@@ -194,7 +194,7 @@ function checkCollisions() {
             const distance = Math.sqrt((bullet.x - ball.x) ** 2 + (bullet.y - ball.y) ** 2);
             if (distance < ball.radius + bullet.radius) {
                 if (bullet.isPowerBullet) {
-                    // Büyük mermi: Tüm topları yok et
+                    // Torpido: Tüm topları yok et
                     balls.splice(ballIndex, 1);
                     score += 10;
                 } else {

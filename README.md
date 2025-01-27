@@ -4,15 +4,15 @@
 
 - Rakip toplarla temas edildiğinde, "can" puanı azalmaktadır. Toplam 3 can hakkı bulunmaktadır.
 
-- İsabetli atışlar, oyuncuya 10 puan kazandırır.
+- İsabetli mermiler ve torpido atışı, oyuncuya 10 puan kazandırır.
 
 - Her 1.000 puan için 1 level kazanılır.
 
 - Oyun, 10.000 puana ulaşıldığında sona erer.
 
-- Her 20 atıştan sonra, oyuncuya "güçlü atış" hakkı verilir ve bu, normal atışlardan farklı olarak, rakip toplara isabet ettiğinde yok olmayan bir özelliğe sahiptir ve isabet ettiği tüm topları yok ederek ilerler.
+- Her 20 atıştan sonra, oyuncuya "torpido" kullanma hakkı verilir. Torpido, normal mermilerden farklı olarak, rakip toplara isabet ettiğinde yok olmaz ve isabet ettiği tüm topları yok ederek ilerler.
 
-- Güçlü atış, sağ tık ile yapılır.
+- Torpido atışı, sağ tık ile yapılır.
 
 # Düzeltilecek veya eklenecek özellikler
 
@@ -20,6 +20,8 @@
 
 - Her "level up" sonrasında, oyunun zorluk seviyesinin biraz daha artması sağlanacak.
 
-- Tek atışta yok olmayan, farklı renkte toplar eklenecek.
+- Tek mermide yok olmayan, sadece torpido ile yok edilebilen (farklı renkte) toplar eklenecek.
+
+- Healt bar'ların konumları düzeltilecek.
 
 - Top renkleri gözden geçirilecek ve bazı görsel iyileştirmeler yapılacak.
