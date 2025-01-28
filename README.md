@@ -14,13 +14,15 @@
 
 - Torpido atışı, sağ tık ile yapılır.
 
+***
+
 # Düzeltilecek veya eklenecek özellikler
 
 - Oyun kaybedildiğinde, tekrar başlatılabilmesi için buton eklenecek.
 
 - Her "level up" sonrasında, oyunun zorluk seviyesinin biraz daha artması sağlanacak.
 
-- Tek mermide yok olmayan, sadece torpido ile yok edilebilen (farklı renkte) toplar eklenecek.
+- Normal mermi ile yok edilemeyen, sadece torpido ile yok edilebilen (farklı renkte) toplar eklenecek.
 
 - Healt bar'ların konumları düzeltilecek.
 
