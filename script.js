@@ -17,7 +17,7 @@ const player = {
 // Toplar
 let balls = [];
 const ballRadius = 15;
-const ballSpeed = 2;
+let ballSpeed = 2; // Başlangıç hızı
 
 // Mermiler
 let bullets = [];
@@ -29,18 +29,17 @@ let score = 0;
 let lives = 3;
 
 // Level
-let level = 1;
+let level = 0;
 
 // Oyun Durumu
 let gameOver = false;
-let gameWon = false;
 
 // Mouse Pozisyonu
 let mouseX = player.x;
 let mouseY = player.y;
 
-// Normal Mermi Sayacı
-let bulletCount = 0;
+// Torpido Hazırlanma Sayacı (Sadece normal mermiler ile yok edilen toplar)
+let destroyedBallsCount = 0;
 
 // Mouse Hareketini Takip Etme
 canvas.addEventListener('mousemove', (event) => {
@@ -53,7 +52,7 @@ canvas.addEventListener('mousemove', (event) => {
 canvas.addEventListener('mousedown', (event) => {
     if (event.button === 0) { // Sol tık (normal mermi)
         fireBullet();
-    } else if (event.button === 2 && bulletCount >= 20) { // Sağ tık (torpido)
+    } else if (event.button === 2 && destroyedBallsCount >= 20) { // Sağ tık (torpido)
         firePowerBullet();
     }
 });
@@ -65,10 +64,10 @@ canvas.addEventListener('contextmenu', (event) => {
 
 // Normal Mermi Ateşleme Fonksiyonu
 function fireBullet() {
-    if (gameOver || gameWon) return;
+    if (gameOver) return;
 
     const angle = Math.atan2(mouseY - player.y, mouseX - player.x);
-    const speed = 5;
+    const speed = 7.5;
 
     bullets.push({
         x: player.x,
@@ -79,17 +78,14 @@ function fireBullet() {
         radius: 5, // Normal mermi boyutu
         color: "#ffffff"
     });
-
-    bulletCount++; // Sayaç artsın
-    updatePowerBar(); // Bar'ı güncelle
 }
 
 // Torpido Ateşleme Fonksiyonu
 function firePowerBullet() {
-    if (gameOver || gameWon) return;
+    if (gameOver) return;
 
     const angle = Math.atan2(mouseY - player.y, mouseX - player.x);
-    const speed = 5;
+    const speed = 7.5;
 
     bullets.push({
         x: player.x,
@@ -98,21 +94,21 @@ function firePowerBullet() {
         dy: Math.sin(angle) * speed,
         isPowerBullet: true, // Torpido
         radius: ballRadius, // Torpido boyutu
-        color: "#8B0000"
+        color: "#000000"
     });
 
-    bulletCount = 0; // Torpido ateşlendi, sayacı sıfırla.
-    updatePowerBar(); // Bar'ı güncelle
+    destroyedBallsCount = 0; // Torpido ateşlendi, sayacı sıfırla.
+    updatePowerBar(); // Bar'ı güncelle.
 }
 
 // Torpido Bar'ını Güncelleme
 function updatePowerBar() {
-    if (bulletCount >= 20) {
-        powerBar.style.width = "100%"; // Bar tamamen dolu
+    if (destroyedBallsCount >= 20) {
+        powerBar.style.width = "100%"; // Bar tamamen dolu.
         powerBarText.textContent = "Torpido Hazır!";
         powerBarText.style.opacity = 1;
     } else {
-        const powerProgress = (bulletCount / 20) * 100;
+        const powerProgress = (destroyedBallsCount / 20) * 100;
         powerBar.style.width = powerProgress + "%";
         powerBarText.style.opacity = 0;
     }
@@ -124,7 +120,7 @@ function createBall() {
     const y = 0;
     const dx = (Math.random() - 0.5) * ballSpeed;
     const dy = Math.random() * ballSpeed + 1;
-    balls.push({ x, y, dx, dy, radius: ballRadius, color: "#ff4757" });
+    balls.push({ x, y, dx, dy, radius: ballRadius, color: "#ff0000" });
 }
 
 // Oyuncuyu Çizme
@@ -152,11 +148,11 @@ function drawBalls() {
         // Topun Oyuncuya Çarpması
         const distanceToPlayer = Math.sqrt((ball.x - player.x) ** 2 + (ball.y - player.y) ** 2);
         if (distanceToPlayer < ball.radius + player.radius) {
-            lives--; // Can azalt
-            balls.splice(index, 1); // Topu kaldır
+            lives--; // Can azalt.
+            balls.splice(index, 1); // Topu kaldır.
 
             if (lives === 0) {
-                gameOver = true; // Canlar bittiyse oyunu bitir
+                gameOver = true; // Can küreleri bittiyse oyunu bitir.
             }
         }
 
@@ -196,12 +192,15 @@ function checkCollisions() {
                 if (bullet.isPowerBullet) {
                     // Torpido: Tüm topları yok et
                     balls.splice(ballIndex, 1);
-                    score += 10;
+                    score += 20; // İsabetli torpido atışının sağladığı puan.
+                    // Torpido ile yok edilen toplar, torpido bar'ını etkilemez.
                 } else {
                     // Normal mermi: Sadece bir topu yok et
                     balls.splice(ballIndex, 1);
                     bullets.splice(bulletIndex, 1);
                     score += 10;
+                    destroyedBallsCount++; // Sadece normal mermilerle yok edilen toplar, torpido bar'ına katkı sağlar.
+                    updatePowerBar(); // Bar'ı güncelle.
                 }
             }
         });
@@ -214,12 +213,13 @@ function updateHUD() {
     levelElement.textContent = "Level: " + level;
 
     // Level Bar Güncelleme
-    const levelProgress = (score % 1000) / 1000 * 100;
+    const levelProgress = (score % (200 * Math.pow(2, level))) / (200 * Math.pow(2, level)) * 100;
     levelBar.style.width = levelProgress + "%";
 
     // Level Atlama
-    if (score >= level * 1000) {
+    if (score >= 200 * Math.pow(2, level)) {
         level++;
+        ballSpeed *= 1.2; // Her level atlamada, topların hızını %20 artır.
     }
 
     // Can Görselini Güncelleme
@@ -242,20 +242,11 @@ function drawGameOver() {
     ctx.fillText("Puanınız: " + score, canvas.width / 2 - 50, canvas.height / 2 + 30);
 }
 
-// Kazanma Ekranı
-function drawGameWon() {
-    ctx.fillStyle = "#61dafb";
-    ctx.font = "40px Arial";
-    ctx.fillText("Kazandınız!", canvas.width / 2 - 100, canvas.height / 2);
-    ctx.font = "20px Arial";
-    ctx.fillText("Puanınız: " + score, canvas.width / 2 - 50, canvas.height / 2 + 30);
-}
-
 // Ana Oyun Döngüsü
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    if (!gameOver && !gameWon) {
+    if (!gameOver) {
         drawPlayer();
         drawBalls();
         drawBullets();
@@ -268,16 +259,9 @@ function gameLoop() {
             createBall();
         }
 
-        // 10000 Puan Kontrolü
-        if (score >= 10000) {
-            gameWon = true;
-        }
-
         requestAnimationFrame(gameLoop);
-    } else if (gameOver) {
+    } else {
         drawGameOver();
-    } else if (gameWon) {
-        drawGameWon();
     }
 }
 
