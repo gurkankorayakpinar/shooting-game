@@ -14,17 +14,15 @@
 
 - Normal mermiler, isabet hâlinde oyuncuya 10 puan kazandırır.
 
-- Torpido atışları, isabet hâlinde oyuncuya 20 puan kazanrırır.
+- Torpido atışları, isabet hâlinde oyuncuya 50 puan kazanrırır.
 
-- Oyuna "level 0" ile başlanır. 200 puana ulaşan oyuncu "level 1" olurken, 400 puana ulaşan "level 2" olur ve 800 puana ulaşan oyuncu da "level 3" olur. Oyundaki seviye sistemi, bu şekilde, üstel olarak devam etmektedir.
+- Oyuna "level 0" ile başlanır. 200 puana ulaşan oyuncu "level 1" olurken, 400 puana ulaşan "level 2" olur ve 800 puana ulaşan oyuncu da "level 3" olur. Oyundaki seviye sistemi, bu şekilde, yani üstel olarak devam etmektedir.
 
 - Her "level up" sonrasında, rakip topların hızı %25 artmaktadır.
 
 ***
 
 # Düzeltilecek veya eklenecek özellikler
-
-- Torpido tarafından kazanılan puan 50 olarak düzeltilecek.
 
 - Oyun kaybedildiğinde, tekrar başlatılabilmesi için buton eklenecek.
 
