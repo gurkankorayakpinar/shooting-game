@@ -105,7 +105,7 @@ function firePowerBullet() {
 function updatePowerBar() {
     if (destroyedBallsCount >= 20) {
         powerBar.style.width = "100%"; // Bar tamamen dolu.
-        powerBarText.textContent = "Torpido Hazır!";
+        powerBarText.textContent = "Torpido hazır!";
         powerBarText.style.opacity = 1;
     } else {
         const powerProgress = (destroyedBallsCount / 20) * 100;
@@ -192,7 +192,7 @@ function checkCollisions() {
                 if (bullet.isPowerBullet) {
                     // Torpido: Tüm topları yok et
                     balls.splice(ballIndex, 1);
-                    score += 20; // İsabetli torpido atışının sağladığı puan.
+                    score += 50; // İsabetli torpido atışının sağladığı puan.
                     // Torpido ile yok edilen toplar, torpido bar'ını etkilemez.
                 } else {
                     // Normal mermi: Sadece bir topu yok et
@@ -219,7 +219,7 @@ function updateHUD() {
     // Level Atlama
     if (score >= 200 * Math.pow(2, level)) {
         level++;
-        ballSpeed *= 1.2; // Her level atlamada, topların hızını %20 artır.
+        ballSpeed *= 1.25; // Her level up sonrasında, rakip topların hızı %25 artar.
     }
 
     // Can Görselini Güncelleme
