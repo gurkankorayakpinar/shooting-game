@@ -41,6 +41,12 @@ let mouseY = player.y;
 // Torpido Hazırlanma Sayacı (Sadece normal mermiler ile yok edilen toplar)
 let destroyedBallsCount = 0;
 
+// Otomatik ateş durumu ve zamanlayıcı
+let isAutoFireActive = false;
+let lastFireTime = 0;
+const fireRate = 4; // Saniyede 4 ateş
+const fireInterval = 1000 / fireRate; // Ateş aralığı (ms cinsinden)
+
 // Mouse Hareketini Takip Etme
 canvas.addEventListener('mousemove', (event) => {
     const rect = canvas.getBoundingClientRect();
@@ -50,10 +56,17 @@ canvas.addEventListener('mousemove', (event) => {
 
 // Mouse Tıklamasını Dinleme
 canvas.addEventListener('mousedown', (event) => {
-    if (event.button === 0) { // Sol tık (normal mermi)
+    if (event.button === 0 && !isAutoFireActive) { // Sol tık (normal mermi) ve otomatik ateş kapalıysa
         fireBullet();
     } else if (event.button === 2 && destroyedBallsCount >= 20) { // Sağ tık (torpido)
         firePowerBullet();
+    }
+});
+
+// Space tuşu ile ateş etme
+document.addEventListener('keydown', (event) => {
+    if (event.code === 'Space' && !isAutoFireActive) { // Space tuşu ve otomatik ateş kapalıysa
+        fireBullet();
     }
 });
 
@@ -61,6 +74,45 @@ canvas.addEventListener('mousedown', (event) => {
 canvas.addEventListener('contextmenu', (event) => {
     event.preventDefault();
 });
+
+// "F" tuşu dinleyicisi
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'f' || event.key === 'F') {
+        isAutoFireActive = !isAutoFireActive; // Aç/kapat
+        updateAutoFireIndicator(); // Göstergeyi güncelle
+
+        // Otomatik ateş başlat
+        if (isAutoFireActive) {
+            autoFire();
+        }
+    }
+});
+
+// Otomatik ateş fonksiyonu
+function autoFire() {
+    if (!isAutoFireActive) return; // Eğer otomatik ateş kapalıysa dur
+
+    const currentTime = Date.now();
+    if (currentTime - lastFireTime >= fireInterval) {
+        fireBullet(); // Mermi ateşle
+        lastFireTime = currentTime; // Son ateş zamanını güncelle
+    }
+
+    // Otomatik ateşi devam ettir
+    requestAnimationFrame(autoFire);
+}
+
+// Göstergeyi güncelleme fonksiyonu
+function updateAutoFireIndicator() {
+    const autoFireStatus = document.getElementById('autoFireStatus');
+    if (isAutoFireActive) {
+        autoFireStatus.textContent = "Açık";
+        autoFireStatus.classList.add('active');
+    } else {
+        autoFireStatus.textContent = "Kapalı";
+        autoFireStatus.classList.remove('active');
+    }
+}
 
 // Normal Mermi Ateşleme Fonksiyonu
 function fireBullet() {
@@ -192,7 +244,7 @@ function checkCollisions() {
                 if (bullet.isPowerBullet) {
                     // Torpido: Tüm topları yok et
                     balls.splice(ballIndex, 1);
-                    score += 50; // İsabetli torpido atışının sağladığı puan.
+                    score += 100; // İsabetli torpido atışının sağladığı puan.
                     // Torpido ile yok edilen toplar, torpido bar'ını etkilemez.
                 } else {
                     // Normal mermi: Sadece bir topu yok et
@@ -213,11 +265,11 @@ function updateHUD() {
     levelElement.textContent = "Level: " + level;
 
     // Level Bar Güncelleme
-    const levelProgress = (score % (200 * Math.pow(2, level))) / (200 * Math.pow(2, level)) * 100;
+    const levelProgress = (score % (100 * Math.pow(2, level))) / (100 * Math.pow(2, level)) * 100;
     levelBar.style.width = levelProgress + "%";
 
     // Level Atlama
-    if (score >= 200 * Math.pow(2, level)) {
+    if (score >= 100 * Math.pow(2, level)) {
         level++;
         ballSpeed *= 1.25; // Her level up sonrasında, rakip topların hızı %25 artar.
     }

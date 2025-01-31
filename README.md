@@ -1,24 +1,34 @@
 # Shooting game
 
-- Bu proje, sabit olarak duran bir topun, farklı yönlere doğru düz bir şekilde hareket eden diğer topları yok etmeye çalıştığı bir browser oyunudur.
+- Bu proje, sabit şekilde duran bir topun, farklı yönlere doğru düz bir şekilde hareket eden rakip topları yok etmeye çalıştığı bir browser oyunudur.
 
-- Rakip topların temas etmesi hâlinde, "can" puanı azalmaktadır. Toplam 3 "can" hakkı bulunmaktadır.
+- Rakip topların temas etmesi hâlinde "can" puanı azalmaktadır. Toplam 3 "can" hakkı bulunmaktadır.
 
-- Her 20 isabetli atıştan sonra, oyuncuya "torpido" kullanma hakkı verilir. İsabetli olmayan atışlar ise torpido hakkı sağlamaz. Torpido, normal mermilerden farklı olarak, rakip toplara isabet ettiğinde yok olmaz. Yani, isabet ettiği tüm topları yok ederek ilerler.
+- Normal mermiler ile yapılan her 20 isabetli atıştan sonra, oyuncuya "torpido" kullanma hakkı verilir. İsabetli olmayan atışlar ise torpido bar'ına katkı sağlamaz. Ayrıca, torpido atışları, isabetli olsalar bile torpido bar'ına katkı sağlamazlar.
 
-- Normal mermiler ile yapılan her 20 isabetli atıştan sonra, oyuncuya "torpido" kullanma hakkı verilir. İsabetli olmayan atışlar ise torpido bar'ına katkı sağlamaz. Ayrıca, isabetli torpido atışları da torpido bar'ına katkı sağlamamaktadır.
+- Torpido, normal mermilerden farklı olarak, rakip toplara isabet ettiğinde yok olmayan ve bu sayede, isabet ettiği tüm topları yok ederek ilerleyen bir silahtır.
 
-- Bir torpido; normal mermiden farklı olarak, rakip toplara isabet ettiğinde yok olmayıp, isabet ettiği tüm topları yok ederek ilerlemektedir.
+- Normal atışlar, "sol tık" veya "space" tuşu ile yapılır.
 
-- Torpido atışı, sağ tık ile yapılır.
+- Torpido atışları, "sağ tık" ile yapılır.
 
-- Normal mermiler, isabet hâlinde oyuncuya 10 puan kazandırır.
+***
 
-- Torpido atışları, isabet hâlinde oyuncuya 50 puan kazanrırır.
+- Normal mermiler, isabet hâlinde 10 puan kazandırır.
 
-- Oyuna "level 0" ile başlanır. 200 puana ulaşan oyuncu "level 1" olurken, 400 puana ulaşan "level 2" olur ve 800 puana ulaşan oyuncu da "level 3" olur. Oyundaki seviye sistemi, bu şekilde, yani üstel olarak devam etmektedir.
+- Torpido atışları, isabet hâlinde 100 puan kazandırır.
+
+- Oyuna "level 0" ile başlanır. 100 puana ulaşan oyuncu "level 1" olurken, 200 puana ulaşan "level 2" ve 400 puana ulaşan oyuncu da "level 3" olur. Oyundaki seviye sistemi, bu şekilde, yani üstel olarak devam etmektedir.
 
 - Her "level up" sonrasında, rakip topların hızı %25 artmaktadır.
+
+***
+
+- F tuşuna basıldığında, "otomatik ateş" özelliği açılır. Bu özellik, saniyede 4 adet "normal mermi" fırlatır.
+
+- "Otomatik ateş" özelliği açık iken, "sol tık" veya "space" ile atış yapılamaz. "Sol tık" veya "space" ile ateş etmek isteyen bir oyuncu, F tuşuna basarak "otomatik ateş" özelliğini kapatmalıdır.
+
+- "Otomatik ateş" özelliği, torpido kullanımına engel değildir.
 
 ***
 
@@ -27,5 +37,7 @@
 - Oyun kaybedildiğinde, tekrar başlatılabilmesi için buton eklenecek.
 
 - Oyuna "Pause" özelliği eklenecek.
+
+- İsabetli torpido atışlarıyla elde edilen puan, "level up" için gereken puanın 10'da 1'i olacak şekilde ayarlanacak.
 
 - "Can" kürelerinin konumları düzeltilecek.
