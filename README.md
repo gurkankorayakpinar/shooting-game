@@ -35,7 +35,7 @@
 *******
 *********
 
-<hr style="height: 4px; background-color: white; border: none;">
+<hr style="height: 8px; background-color: white; border: none;">
 
 # Düzeltilecek veya eklenecek özellikler
 
