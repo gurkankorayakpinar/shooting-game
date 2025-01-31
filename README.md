@@ -2,6 +2,8 @@
 
 - Bu proje, sabit şekilde duran bir topun, farklı yönlere doğru düz bir şekilde hareket eden rakip topları yok etmeye çalıştığı bir browser oyunudur.
 
+***
+
 - Rakip topların temas etmesi hâlinde "can" puanı azalmaktadır. Toplam 3 "can" hakkı bulunmaktadır.
 
 - Normal mermiler ile yapılan her 20 isabetli atıştan sonra, oyuncuya "torpido" kullanma hakkı verilir. İsabetli olmayan atışlar ise torpido bar'ına katkı sağlamaz. Ayrıca, torpido atışları, isabetli olsalar bile torpido bar'ına katkı sağlamazlar.
