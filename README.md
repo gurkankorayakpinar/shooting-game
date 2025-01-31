@@ -31,11 +31,8 @@
 - "Otomatik ateş" özelliği, torpido kullanımına engel değildir.
 
 ***
-*****
-*******
-*********
-
-<hr style="height: 8px; background-color: white; border: none;">
+***
+***
 
 # Düzeltilecek veya eklenecek özellikler
 
