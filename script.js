@@ -153,7 +153,7 @@ function firePowerBullet() {
     updatePowerBar(); // Bar'ı güncelle.
 }
 
-// Torpido Bar'ını Güncelleme
+// Torpido Bar'ını Güncelle
 function updatePowerBar() {
     if (destroyedBallsCount >= 20) {
         powerBar.style.width = "100%"; // Bar tamamen dolu.
@@ -166,7 +166,7 @@ function updatePowerBar() {
     }
 }
 
-// Topları Oluşturma
+// Topları Oluştur
 function createBall() {
     const x = Math.random() * canvas.width;
     const y = 0;
@@ -244,14 +244,19 @@ function checkCollisions() {
                 if (bullet.isPowerBullet) {
                     // Torpido: Tüm topları yok et
                     balls.splice(ballIndex, 1);
-                    score += 100; // İsabetli torpido atışının sağladığı puan.
+
+                    // Her bir hedef için puan kazandır.
+                    let nextLevelRequirement = 100 * Math.pow(2, level); // Bir sonraki seviye için gereken puan.
+                    let torpedoScore = nextLevelRequirement * 0.1; // %10'unu "puan" olarak kazandır.
+                    score += torpedoScore; // Toplam puana ekle.
+
                     // Torpido ile yok edilen toplar, torpido bar'ını etkilemez.
                 } else {
                     // Normal mermi: Sadece bir topu yok et
                     balls.splice(ballIndex, 1);
                     bullets.splice(bulletIndex, 1);
                     score += 10;
-                    destroyedBallsCount++; // Sadece normal mermilerle yok edilen toplar, torpido bar'ına katkı sağlar.
+                    destroyedBallsCount++; // Sadece normal mermiler ile yok edilen toplar, torpido bar'ına katkı sağlar.
                     updatePowerBar(); // Bar'ı güncelle.
                 }
             }
@@ -271,7 +276,7 @@ function updateHUD() {
     // Level Atlama
     if (score >= 100 * Math.pow(2, level)) {
         level++;
-        ballSpeed *= 1.25; // Her level up sonrasında, rakip topların hızı %25 artar.
+        ballSpeed *= 1.20; // Her level up sonrasında, rakip topların hızı %20 artar.
     }
 
     // Can Görselini Güncelleme
