@@ -38,14 +38,17 @@ let gameOver = false;
 let mouseX = player.x;
 let mouseY = player.y;
 
-// Torpido Hazırlanma Sayacı (Sadece normal mermiler ile yok edilen toplar)
+// Torpido Sayacı (Sadece "normal mermiler" ile yok edilen toplar sayesinde)
 let destroyedBallsCount = 0;
 
-// Otomatik ateş durumu ve zamanlayıcı
+// "Otomatik ateş" durumu ve zamanlayıcı
 let isAutoFireActive = false;
 let lastFireTime = 0;
-const fireRate = 4; // Saniyede 4 ateş
-const fireInterval = 1000 / fireRate; // Ateş aralığı (ms cinsinden)
+const fireRate = 3; // Saniyede 3 ateş
+const fireInterval = 1000 / fireRate; // Ateş aralığı (milisaniye cinsinden)
+
+// Space tuşu durumu
+let isSpacePressed = false;
 
 // Mouse Hareketini Takip Etme
 canvas.addEventListener('mousemove', (event) => {
@@ -65,8 +68,16 @@ canvas.addEventListener('mousedown', (event) => {
 
 // Space tuşu ile ateş etme
 document.addEventListener('keydown', (event) => {
-    if (event.code === 'Space' && !isAutoFireActive) { // Space tuşu ve otomatik ateş kapalıysa
+    if (event.code === 'Space' && !isAutoFireActive && !isSpacePressed) { // Space tuşu, otomatik ateş kapalıysa ve space tuşu daha önce basılmamışsa (basılı tutarak ateş etmeyi engellemek için)
         fireBullet();
+        isSpacePressed = true; // Space tuşunun basıldığını işaretle
+    }
+});
+
+// Space tuşu bırakıldığında
+document.addEventListener('keyup', (event) => {
+    if (event.code === 'Space') {
+        isSpacePressed = false; // Space tuşunun bırakıldığını işaretle
     }
 });
 
@@ -88,7 +99,7 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-// Otomatik ateş fonksiyonu
+// "Otomatik ateş" fonksiyonu
 function autoFire() {
     if (!isAutoFireActive) return; // Eğer otomatik ateş kapalıysa dur
 
@@ -114,7 +125,7 @@ function updateAutoFireIndicator() {
     }
 }
 
-// Normal Mermi Ateşleme Fonksiyonu
+// "Normal Mermi" Ateşleme Fonksiyonu
 function fireBullet() {
     if (gameOver) return;
 
@@ -132,7 +143,7 @@ function fireBullet() {
     });
 }
 
-// Torpido Ateşleme Fonksiyonu
+// "Torpido" Ateşleme Fonksiyonu
 function firePowerBullet() {
     if (gameOver) return;
 
@@ -175,7 +186,7 @@ function createBall() {
     balls.push({ x, y, dx, dy, radius: ballRadius, color: "#ff0000" });
 }
 
-// Oyuncuyu Çizme
+// Oyuncuyu Çiz
 function drawPlayer() {
     ctx.beginPath();
     ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
@@ -184,7 +195,7 @@ function drawPlayer() {
     ctx.closePath();
 }
 
-// Topları Çizme ve Hareket Ettirme
+// Topları Çiz ve Hareket Ettir
 function drawBalls() {
     balls.forEach((ball, index) => {
         ctx.beginPath();
@@ -215,7 +226,7 @@ function drawBalls() {
     });
 }
 
-// Mermileri Çizme ve Hareket Ettirme
+// Mermileri Çiz ve Hareket Ettir
 function drawBullets() {
     bullets.forEach((bullet, index) => {
         ctx.beginPath();
@@ -276,10 +287,10 @@ function updateHUD() {
     // Level Atlama
     if (score >= 100 * Math.pow(2, level)) {
         level++;
-        ballSpeed *= 1.20; // Her level up sonrasında, rakip topların hızı %20 artar.
+        ballSpeed *= 1.25; // Her level up sonrasında, rakip topların hızı %25 artar.
     }
 
-    // Can Görselini Güncelleme
+    // Can Görselini Güncelle
     const lifeElements = document.querySelectorAll('.life');
     lifeElements.forEach((life, index) => {
         if (index < lives) {
@@ -290,7 +301,7 @@ function updateHUD() {
     });
 }
 
-// Game Over Ekranı
+// "Game Over" Ekranı
 function drawGameOver() {
     ctx.fillStyle = "#ff4757";
     ctx.font = "40px Arial";
