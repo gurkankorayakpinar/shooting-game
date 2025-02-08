@@ -10,9 +10,9 @@
 
 - Torpido, normal mermilerden farklı olarak, rakip toplara isabet ettiğinde yok olmayan ve bu sayede, isabet ettiği tüm topları yok ederek ilerleyen bir silahtır.
 
-- Normal atışlar, "sol tık" veya "space" tuşu ile yapılır. İkisi de arka arkaya kullanılabilir ve böylece, daha seri atış yapılabilir.
+- Normal atışlar, "sol tık" veya "space" tuşu ile yapılır. İkisini de kullanarak daha seri atış yapmak mümkündür.
 
-- "Sol tık" ve "space" tuşu basılı tutularak ateş edilmesi engellenmiştir.
+- "Sol tık" ve "space" tuşu için "basılı tutarak arka arkaya ateş etme" özelliği devre dışı bırakılmıştır.
 
 - Torpido atışları, "sağ tık" ile yapılır.
 
@@ -28,7 +28,7 @@
 
 ***
 
-- F tuşuna basıldığında, "otomatik ateş" özelliği açılır. Bu özellik, saniyede 3 adet "normal mermi" fırlatır.
+- F tuşuna basıldığında, "otomatik ateş" özelliği açılır. Bu özellik, saniyede 5 adet "normal mermi" fırlatır.
 
 - "Otomatik ateş" özelliği açık iken, "sol tık" veya "space" ile atış yapılamaz. "Sol tık" veya "space" ile ateş etmek isteyen bir oyuncu, F tuşuna tekrar basarak "otomatik ateş" özelliğini kapatmalıdır.
 
@@ -39,6 +39,8 @@
 ***
 
 # Düzeltilecek veya eklenecek özellikler
+
+- "Otomatik ateş" ile 1 saniyede gönderilen mermi sayısı, lvl sayısına eşitlenecek. (5 lvl için "saniyede 5 mermi" gibi)
 
 - Oyun kaybedildiğinde, tekrar başlatılabilmesi için buton eklenecek.
 

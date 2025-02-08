@@ -44,7 +44,7 @@ let destroyedBallsCount = 0;
 // "Otomatik ateş" durumu ve zamanlayıcı
 let isAutoFireActive = false;
 let lastFireTime = 0;
-const fireRate = 3; // Saniyede 3 ateş
+const fireRate = 4; // Saniyede 4 ateş
 const fireInterval = 1000 / fireRate; // Ateş aralığı (milisaniye cinsinden)
 
 // Space tuşu durumu
