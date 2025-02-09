@@ -28,8 +28,8 @@ let score = 0;
 // Can Sayısı
 let lives = 3;
 
-// Level
-let level = 0;
+// İlk Level
+let level = 1;
 
 // Oyun Durumu
 let gameOver = false;
@@ -44,8 +44,6 @@ let destroyedBallsCount = 0;
 // "Otomatik ateş" durumu ve zamanlayıcı
 let isAutoFireActive = false;
 let lastFireTime = 0;
-const fireRate = 4; // Saniyede 4 ateş
-const fireInterval = 1000 / fireRate; // Ateş aralığı (milisaniye cinsinden)
 
 // Space tuşu durumu
 let isSpacePressed = false;
@@ -81,7 +79,7 @@ document.addEventListener('keyup', (event) => {
     }
 });
 
-// Sağ tık menüsünü engelleme
+// Sağ tık menüsünü engelleme (Çünkü oyunda "sağ tık" için başka bir özellik var.)
 canvas.addEventListener('contextmenu', (event) => {
     event.preventDefault();
 });
@@ -101,15 +99,17 @@ document.addEventListener('keydown', (event) => {
 
 // "Otomatik ateş" fonksiyonu
 function autoFire() {
-    if (!isAutoFireActive) return; // Eğer otomatik ateş kapalıysa dur
+    if (!isAutoFireActive) return; // Eğer "otomatik ateş" kapalıysa dur
 
     const currentTime = Date.now();
+    const fireInterval = 1000 / level; // 1 saniyede gönderilen otomatik mermi, level sayısına eşit.
+
     if (currentTime - lastFireTime >= fireInterval) {
         fireBullet(); // Mermi ateşle
         lastFireTime = currentTime; // Son ateş zamanını güncelle
     }
 
-    // Otomatik ateşi devam ettir
+    // Otomatik ateş devam ettirilir.
     requestAnimationFrame(autoFire);
 }
 
@@ -177,7 +177,7 @@ function updatePowerBar() {
     }
 }
 
-// Topları Oluştur
+// Rakip Topları Oluştur
 function createBall() {
     const x = Math.random() * canvas.width;
     const y = 0;
@@ -212,10 +212,10 @@ function drawBalls() {
         const distanceToPlayer = Math.sqrt((ball.x - player.x) ** 2 + (ball.y - player.y) ** 2);
         if (distanceToPlayer < ball.radius + player.radius) {
             lives--; // Can azalt.
-            balls.splice(index, 1); // Topu kaldır.
+            balls.splice(index, 1); // Çarpan topu kaldır.
 
             if (lives === 0) {
-                gameOver = true; // Can küreleri bittiyse oyunu bitir.
+                gameOver = true; // Can küreleri bittiyse, oyunu biter.
             }
         }
 
@@ -253,21 +253,21 @@ function checkCollisions() {
             const distance = Math.sqrt((bullet.x - ball.x) ** 2 + (bullet.y - ball.y) ** 2);
             if (distance < ball.radius + bullet.radius) {
                 if (bullet.isPowerBullet) {
-                    // Torpido: Tüm topları yok et
+                    // Torpido: İsabet ettiği tüm topları yok eder.
                     balls.splice(ballIndex, 1);
 
-                    // Her bir hedef için puan kazandır.
-                    let nextLevelRequirement = 100 * Math.pow(2, level); // Bir sonraki seviye için gereken puan.
+                    // // İsabet ettiği her hedef için puan kazandır.
+                    let nextLevelRequirement = 200 * Math.pow(2, level - 1); // Bir sonraki seviye için gereken puan.
                     let torpedoScore = nextLevelRequirement * 0.1; // %10'unu "puan" olarak kazandır.
                     score += torpedoScore; // Toplam puana ekle.
 
                     // Torpido ile yok edilen toplar, torpido bar'ını etkilemez.
                 } else {
-                    // Normal mermi: Sadece bir topu yok et
+                    // Normal mermi: Sadece bir topu yok eder.
                     balls.splice(ballIndex, 1);
                     bullets.splice(bulletIndex, 1);
-                    score += 10;
-                    destroyedBallsCount++; // Sadece normal mermiler ile yok edilen toplar, torpido bar'ına katkı sağlar.
+                    score += level * 10; // Level ile orantılı olarak puan kazanılır; mesela 3 level için 30 puan.
+                    destroyedBallsCount++; // Sadece "normal mermiler" ile yok edilen toplar, torpido bar'ına katkı sağlar.
                     updatePowerBar(); // Bar'ı güncelle.
                 }
             }
@@ -281,13 +281,13 @@ function updateHUD() {
     levelElement.textContent = "Level: " + level;
 
     // Level Bar Güncelleme
-    const levelProgress = (score % (100 * Math.pow(2, level))) / (100 * Math.pow(2, level)) * 100;
+    const levelProgress = (score % (200 * Math.pow(2, level - 1))) / (200 * Math.pow(2, level - 1)) * 100;
     levelBar.style.width = levelProgress + "%";
 
     // Level Atlama
-    if (score >= 100 * Math.pow(2, level)) {
+    if (score >= 200 * Math.pow(2, level - 1)) {
         level++;
-        ballSpeed *= 1.25; // Her level up sonrasında, rakip topların hızı %25 artar.
+        ballSpeed *= 1.20; // Her level up sonrasında, rakip topların hızı %20 artar.
     }
 
     // Can Görselini Güncelle
@@ -301,13 +301,16 @@ function updateHUD() {
     });
 }
 
-// "Game Over" Ekranı
 function drawGameOver() {
-    ctx.fillStyle = "#ff4757";
-    ctx.font = "40px Arial";
-    ctx.fillText("Game Over!", canvas.width / 2 - 100, canvas.height / 2);
-    ctx.font = "20px Arial";
-    ctx.fillText("Puanınız: " + score, canvas.width / 2 - 50, canvas.height / 2 + 30);
+    ctx.fillStyle = "#ffffff";
+    ctx.textAlign = "center"; // Yatay hizalama
+    ctx.textBaseline = "middle"; // Dikey hizalama
+
+    ctx.font = "35px Arial";
+    ctx.fillText("Kaybettiniz!", canvas.width / 2, canvas.height / 2 - 30); // Üst satır
+
+    ctx.font = "35px Arial";
+    ctx.fillText("Puanınız: " + score, canvas.width / 2, canvas.height / 2 + 30); // Alt satır
 }
 
 // Ana Oyun Döngüsü

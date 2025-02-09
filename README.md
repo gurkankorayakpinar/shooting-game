@@ -1,6 +1,6 @@
 # Shooting game
 
-- Bu proje, sabit şekilde duran bir topun, farklı yönlere doğru düz bir şekilde hareket eden rakip topları yok etmeye çalıştığı bir browser oyunudur.
+- Bu proje, sabit şekilde duran bir topun, ekranın üst kısmından oyun alanına giren ve farklı yönlere doğru düz bir şekilde hareket eden rakip topları yok etmeye çalıştığı bir browser oyunudur.
 
 ***
 
@@ -18,19 +18,19 @@
 
 ***
 
-- İsabetli normal mermiler, 10 puan kazandırır.
+- İsabetli normal mermiler, (lvl * 10) puan kazandırır.
 
 - İsabetli torpido atışları, "lvl up için ulaşılması gereken puan"ın %10'unu kazandırır.
 
-- Oyuna "level 0" ile başlanır. 100 puana ulaşan oyuncu "level 1" olurken, 200 puana ulaşan oyuncu "level 2" ve 400 puana ulaşan oyuncu da "level 3" olur. Oyundaki seviye sistemi, bu şekilde, yani üstel olarak devam etmektedir.
+- İlk level up sınırı 200 puandır. 200 puana ulaşan oyuncu "level 2" olurken, 400 puana ulaşan oyuncu "level 3" olur ve 800 puana ulaşan oyuncu da "level 4" olur. Oyundaki seviye sistemi, üstel olarak devam etmektedir.
 
-- Her "level up" sonrasında, rakip topların hızı %25 artmaktadır.
+- Her "level up" sonrasında, rakip topların hızı %20 artmaktadır.
 
 ***
 
-- F tuşuna basıldığında, "otomatik ateş" özelliği açılır. Bu özellik, saniyede 5 adet "normal mermi" fırlatır.
+- F tuşuna basıldığında, "otomatik ateş" özelliği açılır. Bu özellik, 1 saniyede "level" kadar "normal mermi" fırlatır. Mesela 4 level için "saniyede 4 mermi" fırlatılır.
 
-- "Otomatik ateş" özelliği açık iken, "sol tık" veya "space" ile atış yapılamaz. "Sol tık" veya "space" ile ateş etmek isteyen bir oyuncu, F tuşuna tekrar basarak "otomatik ateş" özelliğini kapatmalıdır.
+- "Otomatik ateş" özelliği açık iken, "sol tık" veya "space" ile "normal mermi" gönderilemez. "Sol tık" veya "space" ile normal mermi kullanmak isteyen bir oyuncu, F tuşuna tekrar basarak "otomatik ateş" özelliğini kapatmalıdır.
 
 - "Otomatik ateş" özelliği, torpido kullanımına engel değildir.
 
@@ -40,7 +40,7 @@
 
 # Düzeltilecek veya eklenecek özellikler
 
-- "Otomatik ateş" ile 1 saniyede gönderilen mermi sayısı, lvl sayısına eşitlenecek. (5 lvl için "saniyede 5 mermi" gibi)
+- "Otomatik ateş" yazısının olduğu bölüme, oyuncuların da görebilmesi için "saniyede x mermi" yazısı eklenecek.
 
 - Oyun kaybedildiğinde, tekrar başlatılabilmesi için buton eklenecek.
 
