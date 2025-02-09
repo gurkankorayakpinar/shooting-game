@@ -24,7 +24,7 @@
 
 - İlk level up sınırı 200 puandır. 200 puana ulaşan oyuncu "level 2" olurken, 400 puana ulaşan oyuncu "level 3" olur ve 800 puana ulaşan oyuncu da "level 4" olur. Oyundaki seviye sistemi, üstel olarak devam etmektedir.
 
-- Her "level up" sonrasında, rakip topların hızı %20 artmaktadır.
+- Her "level up" sonrasında, rakip topların hızı %20 artmaktadır. (Tüm topların hızı aynı değildir.)
 
 ***
 

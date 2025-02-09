@@ -28,7 +28,7 @@ let score = 0;
 // Can Sayısı
 let lives = 3;
 
-// İlk Level
+// Başlangıç
 let level = 1;
 
 // Oyun Durumu
@@ -48,14 +48,14 @@ let lastFireTime = 0;
 // Space tuşu durumu
 let isSpacePressed = false;
 
-// Mouse Hareketini Takip Etme
+// Mouse Hareketini Takip Et
 canvas.addEventListener('mousemove', (event) => {
     const rect = canvas.getBoundingClientRect();
     mouseX = event.clientX - rect.left;
     mouseY = event.clientY - rect.top;
 });
 
-// Mouse Tıklamasını Dinleme
+// Mouse Tıklamasını Dinle
 canvas.addEventListener('mousedown', (event) => {
     if (event.button === 0 && !isAutoFireActive) { // Sol tık (normal mermi) ve otomatik ateş kapalıysa
         fireBullet();
@@ -64,7 +64,7 @@ canvas.addEventListener('mousedown', (event) => {
     }
 });
 
-// Space tuşu ile ateş etme
+// Space tuşu ile ateş et
 document.addEventListener('keydown', (event) => {
     if (event.code === 'Space' && !isAutoFireActive && !isSpacePressed) { // Space tuşu, otomatik ateş kapalıysa ve space tuşu daha önce basılmamışsa (basılı tutarak ateş etmeyi engellemek için)
         fireBullet();
@@ -109,7 +109,7 @@ function autoFire() {
         lastFireTime = currentTime; // Son ateş zamanını güncelle
     }
 
-    // Otomatik ateş devam ettirilir.
+    // "Otomatik ateş" devam ettirilir.
     requestAnimationFrame(autoFire);
 }
 
@@ -160,7 +160,7 @@ function firePowerBullet() {
         color: "#000000"
     });
 
-    destroyedBallsCount = 0; // Torpido ateşlendi, sayacı sıfırla.
+    destroyedBallsCount = 0; // Torpido ateşlendiği anda sayacı sıfırla.
     updatePowerBar(); // Bar'ı güncelle.
 }
 
@@ -303,8 +303,8 @@ function updateHUD() {
 
 function drawGameOver() {
     ctx.fillStyle = "#ffffff";
-    ctx.textAlign = "center"; // Yatay hizalama
-    ctx.textBaseline = "middle"; // Dikey hizalama
+    ctx.textAlign = "center"; // Yatay ortalama
+    ctx.textBaseline = "middle"; // Dikey ortalama
 
     ctx.font = "35px Arial";
     ctx.fillText("Kaybettiniz!", canvas.width / 2, canvas.height / 2 - 30); // Üst satır
