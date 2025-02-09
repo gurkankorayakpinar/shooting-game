@@ -289,7 +289,7 @@ function updateHUD() {
     // Level Atlama
     if (score >= 200 * Math.pow(2, level - 1)) {
         level++;
-        ballSpeed *= 1.20; // Her level up sonrasında, rakip topların hızı %20 artar.
+        ballSpeed *= 1.20; // Her "level up" sonrasında, rakip topların hızı %20 artar.
         updateAutoFireIndicator(); // Update the auto fire rate when level changes.
     }
 
