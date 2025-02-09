@@ -5,6 +5,7 @@ const levelElement = document.getElementById('level');
 const levelBar = document.getElementById('levelBar');
 const powerBar = document.getElementById('powerBar');
 const powerBarText = document.getElementById('powerBarText');
+const autoFireRateElement = document.getElementById('autoFireRate');
 
 // Oyuncu
 const player = {
@@ -123,6 +124,7 @@ function updateAutoFireIndicator() {
         autoFireStatus.textContent = "Kapalı";
         autoFireStatus.classList.remove('active');
     }
+    autoFireRateElement.textContent = level; // Saniyede "level" kadar otomatik mermi atılır.
 }
 
 // "Normal Mermi" Ateşleme Fonksiyonu
@@ -288,6 +290,7 @@ function updateHUD() {
     if (score >= 200 * Math.pow(2, level - 1)) {
         level++;
         ballSpeed *= 1.20; // Her level up sonrasında, rakip topların hızı %20 artar.
+        updateAutoFireIndicator(); // Update the auto fire rate when level changes
     }
 
     // Can Görselini Güncelle
@@ -336,4 +339,4 @@ function gameLoop() {
     }
 }
 
-gameLoop();
+gameLoop(); // Oyunu başlat
