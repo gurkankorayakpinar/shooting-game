@@ -40,8 +40,6 @@
 
 # Düzeltilecek veya eklenecek özellikler
 
-- "Otomatik ateş" yazısının olduğu bölüme, oyuncuların da görebilmesi için "saniyede x mermi" yazısı eklenecek.
-
 - Oyun kaybedildiğinde, tekrar başlatılabilmesi için buton eklenecek.
 
 - Oyuna "Pause" özelliği eklenecek.
