@@ -32,7 +32,7 @@
 
 - "F" veya "f" tuşuna basıldığında, "otomatik ateş" özelliği açılır. Bu özellik, 1 saniyede "level" kadar "normal mermi" fırlatır. (Mesela 4 level için "saniyede 4 mermi" fırlatılır.)
 
-- "Otomatik ateş" özelliği açık olduğu sürece, "sol tık" veya "space" ile "normal mermi" gönderilemez.
+- "Otomatik ateş" özelliği açık iken, "sol tık" veya "space" ile "normal mermi" gönderilemez.
 
 - "Otomatik ateş" özelliği, torpido kullanımına engel değildir.
 
