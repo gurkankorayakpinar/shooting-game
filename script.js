@@ -65,6 +65,11 @@ canvas.addEventListener('mousedown', (event) => {
     }
 });
 
+// "Sağ tık ile menü açma" özelliği devre dışı - (Çünkü oyunda "sağ tık" için başka bir özellik var.)
+document.addEventListener('contextmenu', (event) => {
+    event.preventDefault();
+});
+
 // Space tuşu ile ateş et
 document.addEventListener('keydown', (event) => {
     if (event.code === 'Space' && !isAutoFireActive && !isSpacePressed) { // Space tuşu, otomatik ateş kapalıysa ve space tuşu daha önce basılmamışsa (basılı tutarak ateş etmeyi engellemek için)
@@ -78,11 +83,6 @@ document.addEventListener('keyup', (event) => {
     if (event.code === 'Space') {
         isSpacePressed = false; // Space tuşunun bırakıldığını işaretle
     }
-});
-
-// Sağ tık menüsünü engelleme (Çünkü oyunda "sağ tık" için başka bir özellik var.)
-canvas.addEventListener('contextmenu', (event) => {
-    event.preventDefault();
 });
 
 // "F" tuşu dinleyicisi

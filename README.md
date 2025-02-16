@@ -14,7 +14,7 @@
 
 - "Sol tık" ve "space" tuşu için "basılı tutarak arka arkaya ateş etme" özelliği devre dışı bırakılmıştır.
 
-- Torpido atışları, "sağ tık" ile yapılır.
+- Torpido atışları "sağ tık" ile yapılır ve herhangi bir sorun yaşanmaması için, mouse "sağ tık" ile menü açma özelliği devre dışı bırakılmıştır.
 
 ***
 
