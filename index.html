@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shooting Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div id="gameInfo">
+            <p id="score">Puan: 0</p>
+            <p id="level">Level: 1</p>
+            <div id="levelBarContainer">
+                <div id="levelBar"></div>
+            </div>
+            <div id="powerBarContainer">
+                <div id="powerBar"></div>
+                <span id="powerBarText"></span>
+            </div>
+        </div>
+
+        <!-- Healt Bar -->
+        <div id="livesContainer">
+            <div class="life"></div>
+            <div class="life"></div>
+            <div class="life"></div>
+        </div>
+
+        <!-- Otomatik Ateş Göstergesi -->
+        <div id="autoFireIndicator">
+            (F) Otomatik Ateş (Saniyede <span id="autoFireRate">1</span> mermi): <span
+                id="autoFireStatus">Kapalı</span>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+<!-- GKA -->

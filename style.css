@@ -1,0 +1,121 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #282c34;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+canvas {
+    border: 2px solid #61dafb;
+    background-color: #20232a;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 0 20px rgba(97, 218, 251, 0.5);
+}
+
+#gameInfo {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+    position: relative;
+}
+
+#gameInfo p {
+    margin: 5px 0;
+}
+
+#levelBarContainer {
+    width: 200px;
+    height: 10px;
+    background-color: #444;
+    border-radius: 5px;
+    margin: 10px auto;
+}
+
+#levelBar {
+    width: 0%;
+    height: 100%;
+    background-color: turquoise;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+#powerBarContainer {
+    width: 200px;
+    height: 10px;
+    background-color: #444;
+    border-radius: 5px;
+    margin: 10px auto;
+    position: relative;
+}
+
+#powerBar {
+    width: 0%;
+    height: 100%;
+    background-color: red;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+#powerBarText {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: red;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#livesContainer {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.life {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.life.lost {
+    background-color: transparent;
+}
+
+/* Otomatik Ateş Göstergesi */
+#autoFireIndicator {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    background-color: black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    /* (F) ile "Otomatik Ateş" arasındaki boşluk */
+}
+
+#autoFireStatus {
+    color: red;
+    font-weight: bold;
+}
+
+#autoFireStatus.active {
+    color: green;
+}
