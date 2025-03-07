@@ -49,47 +49,47 @@ let lastFireTime = 0;
 // Space tuşu durumu
 let isSpacePressed = false;
 
-// Mouse Hareketini Takip Et
+// Mouse hareketini takip et.
 canvas.addEventListener('mousemove', (event) => {
     const rect = canvas.getBoundingClientRect();
     mouseX = event.clientX - rect.left;
     mouseY = event.clientY - rect.top;
 });
 
-// Mouse Tıklamasını Dinle
+// Mouse tıklamasını dinle.
 canvas.addEventListener('mousedown', (event) => {
-    if (event.button === 0 && !isAutoFireActive) { // Sol tık (normal mermi) ve otomatik ateş kapalıysa
+    if (event.button === 0 && !isAutoFireActive) { // "Otomatik ateş" sistemi kapalıysa
         fireBullet();
     } else if (event.button === 2 && destroyedBallsCount >= 20) { // Sağ tık (torpido)
         firePowerBullet();
     }
 });
 
-// "Sağ tık ile menü açma" özelliği devre dışı - (Çünkü oyunda "sağ tık" için başka bir özellik var.)
+// "Sağ tık" ile menü açma özelliği devre dışı (Çünkü oyunda "sağ tık" için başka bir özellik var.)
 document.addEventListener('contextmenu', (event) => {
     event.preventDefault();
 });
 
-// Space tuşu ile ateş et
+// Space tuşu ile ateş et.
 document.addEventListener('keydown', (event) => {
-    if (event.code === 'Space' && !isAutoFireActive && !isSpacePressed) { // Space tuşu, otomatik ateş kapalıysa ve space tuşu daha önce basılmamışsa (basılı tutarak ateş etmeyi engellemek için)
+    if (event.code === 'Space' && !isAutoFireActive && !isSpacePressed) { // Otomatik ateş kapalıysa ve space tuşu daha önce basılmamışsa (basılı tutarak ateş edilmesini engellemek için)
         fireBullet();
-        isSpacePressed = true; // Space tuşunun basıldığını işaretle
+        isSpacePressed = true; // Space tuşunun basıldığını işaretle.
     }
 });
 
 // Space tuşu bırakıldığında
 document.addEventListener('keyup', (event) => {
     if (event.code === 'Space') {
-        isSpacePressed = false; // Space tuşunun bırakıldığını işaretle
+        isSpacePressed = false; // Space tuşunun bırakıldığını işaretle.
     }
 });
 
 // "F" tuşu dinleyicisi
 document.addEventListener('keydown', (event) => {
     if (event.key === 'f' || event.key === 'F') {
-        isAutoFireActive = !isAutoFireActive; // Aç/kapat
-        updateAutoFireIndicator(); // Göstergeyi güncelle
+        isAutoFireActive = !isAutoFireActive; // Aç & Kapat
+        updateAutoFireIndicator(); // Göstergeyi güncelle.
 
         // Otomatik ateş başlat
         if (isAutoFireActive) {
@@ -100,10 +100,10 @@ document.addEventListener('keydown', (event) => {
 
 // "Otomatik ateş" fonksiyonu
 function autoFire() {
-    if (!isAutoFireActive) return; // Eğer "otomatik ateş" kapalıysa dur
+    if (!isAutoFireActive) return; // Eğer "otomatik ateş" kapalıysa dur.
 
     const currentTime = Date.now();
-    const fireInterval = 1000 / level; // 1 saniyede gönderilen otomatik mermi, level sayısına eşit.
+    const fireInterval = 1000 / level; // 1 saniyede gönderilen otomatik mermi sayısı, level sayısına eşit.
 
     if (currentTime - lastFireTime >= fireInterval) {
         fireBullet(); // Mermi ateşle
@@ -124,10 +124,10 @@ function updateAutoFireIndicator() {
         autoFireStatus.textContent = "Kapalı";
         autoFireStatus.classList.remove('active');
     }
-    autoFireRateElement.textContent = level; // Saniyede "level" kadar otomatik mermi atılır.
+    autoFireRateElement.textContent = level; // 1 saniyede "level" kadar otomatik mermi atılır.
 }
 
-// "Normal Mermi" Ateşleme Fonksiyonu
+// "Normal mermi" ateşleme fonksiyonu
 function fireBullet() {
     if (gameOver) return;
 
@@ -145,7 +145,7 @@ function fireBullet() {
     });
 }
 
-// "Torpido" Ateşleme Fonksiyonu
+// "Torpido" ateşleme fonksiyonu
 function firePowerBullet() {
     if (gameOver) return;
 
@@ -214,7 +214,7 @@ function drawBalls() {
         const distanceToPlayer = Math.sqrt((ball.x - player.x) ** 2 + (ball.y - player.y) ** 2);
         if (distanceToPlayer < ball.radius + player.radius) {
             lives--; // Can azalt.
-            balls.splice(index, 1); // Çarpan topu kaldır.
+            balls.splice(index, 1); // Çarpan topu yok et.
 
             if (lives === 0) {
                 gameOver = true; // Can küreleri bittiyse, oyunu biter.
@@ -228,7 +228,7 @@ function drawBalls() {
     });
 }
 
-// Mermileri Çiz ve Hareket Ettir
+// Mermileri çiz ve hareket ettir.
 function drawBullets() {
     bullets.forEach((bullet, index) => {
         ctx.beginPath();
@@ -237,18 +237,18 @@ function drawBullets() {
         ctx.fill();
         ctx.closePath();
 
-        // Merminin Hareketi
+        // Merminin hareketi
         bullet.x += bullet.dx;
         bullet.y += bullet.dy;
 
-        // Merminin Ekrandan Çıkması
+        // Merminin ekrandan çıkması
         if (bullet.x < 0 || bullet.x > canvas.width || bullet.y < 0 || bullet.y > canvas.height) {
             bullets.splice(index, 1);
         }
     });
 }
 
-// Çarpışma Kontrolü
+// Çarpışma kontrolü (collision detection)
 function checkCollisions() {
     bullets.forEach((bullet, bulletIndex) => {
         balls.forEach((ball, ballIndex) => {
@@ -258,17 +258,17 @@ function checkCollisions() {
                     // Torpido: İsabet ettiği tüm topları yok eder.
                     balls.splice(ballIndex, 1);
 
-                    // // İsabet ettiği her hedef için puan kazandır.
+                    // İsabet ettiği her hedef için puan kazandır.
                     let nextLevelRequirement = 200 * Math.pow(2, level - 1); // Bir sonraki seviye için gereken puan.
                     let torpedoScore = nextLevelRequirement * 0.1; // %10'unu "puan" olarak kazandır.
-                    score += torpedoScore; // Toplam puana ekle.
+                    score += torpedoScore; // Toplam puan'a ekle.
 
                     // Torpido ile yok edilen toplar, torpido bar'ını etkilemez.
                 } else {
-                    // Normal mermi: Sadece bir topu yok eder.
+                    // Normal mermi: Sadece 1 topu yok eder.
                     balls.splice(ballIndex, 1);
                     bullets.splice(bulletIndex, 1);
-                    score += level * 10; // Level ile orantılı olarak puan kazanılır; mesela 3 level için 30 puan.
+                    score += level * 10; // Level ile orantılı olarak puan kazanılır; mesela "level 3" için 30 puan.
                     destroyedBallsCount++; // Sadece "normal mermiler" ile yok edilen toplar, torpido bar'ına katkı sağlar.
                     updatePowerBar(); // Bar'ı güncelle.
                 }
@@ -277,7 +277,7 @@ function checkCollisions() {
     });
 }
 
-// Puan ve Level Güncelleme
+// Puan ve Level Up
 function updateHUD() {
     scoreElement.textContent = "Puan: " + score;
     levelElement.textContent = "Level: " + level;
@@ -328,7 +328,7 @@ function gameLoop() {
         updateHUD();
         updatePowerBar();
 
-        // Yeni Toplar Oluştur
+        // Yeni toplar oluştur.
         if (Math.random() < 0.02) {
             createBall();
         }
@@ -339,4 +339,4 @@ function gameLoop() {
     }
 }
 
-gameLoop(); // Oyunu başlat
+gameLoop(); // Oyunu başlat.

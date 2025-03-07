@@ -22,7 +22,7 @@
 
 - İsabetli torpido atışları, "lvl up için ulaşılması gereken puan"ın %10'unu kazandırır.
 
-- İlk level up sınırı 200 puandır. 200 puana ulaşan oyuncu "level 2" olurken, 400 puana ulaşan oyuncu "level 3" olur ve 800 puana ulaşan oyuncu da "level 4" olur. Oyundaki seviye sistemi, üstel olarak devam etmektedir.
+- Oyuna "level 1" ile başlanır ve ilk level up sınırı 200 puandır. 200 puana ulaşan oyuncu "level 2" olurken, 400 puana ulaşan oyuncu "level 3" olur ve 800 puana ulaşan oyuncu da "level 4" olur. Oyundaki seviye sistemi, üstel (exponential) olarak devam etmektedir.
 
 - Her "level up" sonrasında, rakip topların hızı %20 artmaktadır. (Tüm topların hızları aynı değildir.)
 
@@ -30,11 +30,11 @@
 
 # Otomatik ateş
 
-- "F" veya "f" tuşuna basıldığında, "otomatik ateş" özelliği açılır. Bu özellik, 1 saniyede "level" kadar "normal mermi" fırlatır. (Mesela 4 level için "saniyede 4 mermi" fırlatılır.)
+- "F" veya "f" tuşuna basıldığında, "otomatik ateş" özelliği açılır. Bu özellik, 1 saniyede "level" kadar "normal mermi" fırlatır. (Mesela "level 4" için "saniyede 4 mermi" fırlatılır.)
 
-- "Otomatik ateş" özelliği açık iken, "sol tık" veya "space" ile "normal mermi" gönderilemez.
+- "Otomatik ateş" özelliği aktifken, "sol tık" veya "space" ile "normal mermi" gönderilemez.
 
-- "Otomatik ateş" özelliği, torpido kullanımına engel değildir.
+- "Otomatik ateş" özelliği aktifken, torpido kullanılabilir.
 
 ***
 ***
@@ -47,3 +47,5 @@
 - Oyuna "Pause" özelliği eklenecek.
 
 - "Can" kürelerinin konumları düzeltilecek.
+
+- Görsel iyileştirmeler yapılacak.
